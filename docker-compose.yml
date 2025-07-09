@@ -40,7 +40,6 @@ services:
       POSTGRES_PORT: 5432
     volumes:
       - users_content:/home/authors
-      - blog_content:/var/www/blogs_public
     networks:
       - backend-network
       - frontend-network
@@ -53,8 +52,7 @@ services:
     image: nginx:latest
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
-      - blog_nginx:/etc/nginx/conf.d/blogs.conf:ro
-      - blog_content:/var/www/blogs_public
+      - blog_nginx:/etc/nginx/sites-available/blogs.conf:ro
     networks:
      - frontend-network
     depends_on:
