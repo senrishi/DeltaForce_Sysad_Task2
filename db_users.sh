@@ -56,7 +56,7 @@ for username in $TABLE; do
     {
     if ! yq -e 'any((.admins[], .users[], .authors[], .mods[]) | .username == "'"${db_username}"'")' "$YAML_FILE" &> /dev/null; then
         DELETE_SQL="DELETE FROM users WHERE username = '$username';"
-        run_sql "$DELETE_SQL"
+        psql -d "$DB_NAME" -U "$DB_USER" -c "$DELETE_SQL"
     fi
     }
 done
